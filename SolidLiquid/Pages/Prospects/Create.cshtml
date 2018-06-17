@@ -1,0 +1,49 @@
+﻿@page
+@model SolidLiquid.Pages.Prospects.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Clients</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Clients.Type" class="control-label"></label>
+                <input asp-for="Clients.Type" class="form-control" />
+                <span asp-validation-for="Clients.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clients.Title" class="control-label"></label>
+                <input asp-for="Clients.Title" class="form-control" />
+                <span asp-validation-for="Clients.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clients.FU" class="control-label"></label>
+                <input asp-for="Clients.FU" class="form-control" />
+                <span asp-validation-for="Clients.FU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clients.IsDeleted" class="control-label"></label>
+                <input asp-for="Clients.IsDeleted" class="form-control" />
+                <span asp-validation-for="Clients.IsDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

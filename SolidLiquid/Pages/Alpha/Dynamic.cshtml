@@ -1,0 +1,197 @@
+﻿@page
+@model SolidLiquid.Pages.Alpha.DynamicModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        .popup-modal
+        {
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dynamic</title>
+
+</head>
+<body>
+
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'>
+    <link rel='stylesheet prefetch' href='https://unpkg.com/vuetify@1.0.19/dist/vuetify.min.css'>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    <script src='https://unpkg.com/babel-polyfill/dist/polyfill.min.js'></script>
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+    <script src='https://unpkg.com/vuetify@1.0.19/dist/vuetify.min.js'></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet" />
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <div class="container">
+        <button class="btn btn-success mt-5 mb-5 popup" href="#addEmployeeForm">
+            New Employee
+        </button>
+        <v-app id="inspire">
+            <v-data-table :headers="headers"
+                          :items="employees"
+                          hide-actions
+                          class="elevation-1">
+                <template slot="items" slot-scope="props">
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ props.item.job }}</td>
+                    <td>{{ props.item.about }}</td>
+                    <td>
+                        <button class="btn btn-dark popup" href="#addEmployeeForm" @@click="editEmployeeForm(props.item)">Edit</button>
+                        <button class="btn btn-danger" @@click="deleteEmployeeForm(props.item.index)">Delete</button>
+                    </td>
+                </template>
+            </v-data-table>
+        </v-app>
+
+        <div id="addEmployeeForm" class="card mb-3 popup-modal">
+            <div class="card-body">
+                <span class="float-right closepopup" style="cursor:pointer;">
+                    X
+                </span>
+                <h4 class="card-title">Add Employee</h4>
+
+                <div class="employee-form">
+                    <input type="text" class="form-control mb-2" placeholder="ID" v-model="ID" disabled />
+                    <input type="text" class="form-control mb-2" placeholder="Name" v-model="Name" />
+                    <input type="text" class="form-control mb-2" placeholder="Job" v-model="Job" />
+                    <textarea cols="30" rows="10" placeholder="About" class="form-control mb-2" v-model="About"></textarea>
+                    <button class="btn btn-success closepopup" @@click="addNewEmployeeForm">Save</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.popup').magnificPopup({
+                type: 'inline',
+                modal: true
+            });
+            $(document).on('click', '.closepopup', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+        });
+
+
+        var app = new Vue(
+            {
+                el: '.container',
+                data: function data() {
+                    return {
+
+                        headers: [
+                            {
+                                text: 'Name',
+                                value: 'name'
+                            },
+                            {
+                                text: 'Job',
+                                value: 'job'
+                            },
+                            {
+                                text: 'About',
+                                value: 'about'
+                            },
+                            {
+                                text: 'Action',
+                                value: 'Action'
+                            }
+
+
+                        ],
+
+                        employees: [
+
+                        ],
+
+                        ID: 0,
+                        Name: '',
+                        Job: '',
+                        About: '',
+                        Length: 0
+
+                    }
+                },
+                methods: {
+                    addNewEmployeeForm() {
+
+                        if (this.ID === 0) {
+                            this.Length = this.Length + 1;
+
+                            this.employees.push(
+                                {
+                                    id: this.Length,
+                                    name: this.Name,
+                                    job: this.Job,
+                                    about: this.About
+                                });
+                        }
+                        else {
+
+                            var index = this.employees.findIndex(x => x.id === this.ID)
+
+                            this.employees[index].id = this.ID;
+                            this.employees[index].name = this.Name;
+                            this.employees[index].job = this.Job;
+                            this.employees[index].about = this.About;
+                        }
+
+                        this.ID = 0;
+                        this.Name = '';
+                        this.Job = '';
+                        this.About = '';
+
+                    },
+
+                    deleteEmployeeForm(index) {
+
+                        this.employees.splice(index, 1);
+
+                        this.Length = this.Length - 1;
+
+                    },
+
+                    editEmployeeForm(model) {
+
+                        $('.popup').magnificPopup({
+                            type: 'inline',
+                            modal: true
+                        }).magnificPopup('open');
+
+
+                        this.Name = model.name;
+                        this.Job = model.job;
+                        this.About = model.about;
+                        this.ID = model.id
+                    },
+
+                    refresh() {
+                        this.show = false;
+                        this.$nextTick(() => {
+                            this.show = true;
+                        });
+                    }
+                }
+
+            });
+    </script>
+
+</body>
+</html>

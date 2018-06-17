@@ -1,0 +1,66 @@
+﻿@page
+@model SolidLiquid.Pages.Alpha.DynamicVueModel
+@{
+    ViewData["Title"] = "DynamicVue";
+}
+
+<h2>DynamicVue</h2>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<div class="container">
+    <button class="btn btn-success mt-5 mb-5" @@click="addNewEmployeeForm">
+        New Employee
+    </button>
+    <div class="card mb-3" v-for="(employee, index) in employees">
+        <div class="card-body">
+            <span class="float-right" style="cursor:pointer;" @@click="deleteEmployeeForm(index)">
+                X
+            </span>
+            <h4 class="card-title">Add Employee (index: {{index}} )</h4>
+
+            <div class="employee-form">
+                <input type="text" class="form-control mb-2" placeholder="Name" v-model="employee.name" />
+                <input type="text" class="form-control mb-2" placeholder="Job" v-model="employee.job" />
+                <textarea cols="30" rows="10" placeholder="About" class="form-control mb-2" v-model="employee.about">
+
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var app = new Vue(
+        {
+            el: '.container',
+            data: {
+                employees: [
+                    {
+                        name: '',
+                        job: '',
+                        about: ''
+
+                    }
+                ]
+            },
+            methods: {
+                addNewEmployeeForm() {
+                    this.employees.push(
+                        {
+                            name: '',
+                            job: '',
+                            about: ''
+                        });
+                },
+                deleteEmployeeForm(index) {
+
+                    this.employees.splice(index, 1);
+                }
+            }
+
+        });
+</script>

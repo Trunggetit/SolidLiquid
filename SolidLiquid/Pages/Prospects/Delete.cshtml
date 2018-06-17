@@ -1,0 +1,46 @@
+﻿@page
+@model SolidLiquid.Pages.Prospects.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Clients</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.FU)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.FU)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.IsDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.IsDeleted)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Clients.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

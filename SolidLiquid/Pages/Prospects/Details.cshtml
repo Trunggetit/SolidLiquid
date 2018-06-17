@@ -1,0 +1,43 @@
+﻿@page
+@model SolidLiquid.Pages.Prospects.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clients</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.FU)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.FU)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.IsDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clients.IsDeleted)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Clients.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
